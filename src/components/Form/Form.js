@@ -24,7 +24,7 @@ const style = {
   },
 };
 
-const Form = () => {
+const Form = ({ onButtonSubmit, onInputchange }) => {
 	return(    
       <div style = {style.wrap}>
   			<TextField 
@@ -32,9 +32,15 @@ const Form = () => {
         placeholder = 'Enter an image URL'
         InputProps = {{
           disableUnderline: true,          
-        }}        
+        }} 
+        onChange = {onInputchange}       
   	    />
-      <Button color = 'primary' style = {style.button}>
+      <Button 
+      color = 'primary' 
+      style = {style.button}
+      onClick = {onButtonSubmit}
+
+      >      
         Submit        
       </Button>         	    
       </div>
