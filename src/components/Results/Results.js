@@ -1,12 +1,24 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
 
+const styles = {
+	root: {
+		display: 'flex',
+		justifyContent: 'center',
+		padding: '20px',
+	},
+	table: {
+		width: '30%',
+		height: '500px',
+		overflowY: 'scroll',
+		minWidth: '450px',	
+	}
+}
 
 const Results = ({ values }) => {
-	console.log(values)
 	return (
-		<div>
-			<Paper>
+		<div style = {styles.root} >
+			<Paper style = {styles.table}>
 		      <Table>
 		        <TableHead>
 		          <TableRow>
@@ -18,7 +30,7 @@ const Results = ({ values }) => {
 			     {values.map(n => {
 		            return (
 		              <TableRow key={n.ingredient}>
-		                <TableCell component="th" scope="row">
+		                <TableCell>
 		                  {n.ingredient}
 		                </TableCell>
 		                <TableCell numeric>{n.probability}</TableCell>		                	                

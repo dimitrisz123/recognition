@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from './components/Form/Form';
 import Image from './components/Image/Image';
 import Results from './components/Results/Results'
+import Browser from './components/Browser/Browser'
 import Clarifai from 'clarifai';
 
 const app = new Clarifai.App({
@@ -15,13 +16,18 @@ class App extends Component {
 		this.state = {
 			input: '',
 			image: '',
-			photoappear: false,
-			values: [],			
+			disable: true,
+			values: [],		
+			browser: 0,	
 		}
 	}
 
+onBrowserClick = (number) => {
+	this.setState({ browser: number })
+}
+
 onInputchange = (event) => {
-	this.setState({input:event.target.value})
+	this.setState({input: event.target.value})
 }
 
 onButtonSubmit = () => {	
@@ -32,7 +38,7 @@ onButtonSubmit = () => {
 		this.state.input)
 		.then(response => {
 			if (response) {
-	  		this.setState({ photoappear: true })
+	  		this.setState({ browser: 2, disable: false })
 	  	}
 	  	this.array(this.results(response))
 	  });
@@ -52,22 +58,26 @@ array = (values) => {
 }
 
   render() {
-  	const { photoappear, values } = this.state 
+  	const { disable, values, browser, image } = this.state  	
     return (
-      <div>
-        <Form 
-        onButtonSubmit = {this.onButtonSubmit}
-        onInputchange = {this.onInputchange}
-        />
-        {(photoappear)
-        ?<Image 
-        photo = {this.state.image}        
-        />
-        :null
-    	}
-        <Results values = {values} />
-      </div>
-    );
+    	<div>
+    		<Browser 
+	      	onBrowserClick = {this.onBrowserClick}
+	      	changePage = {browser}
+	      	disable = {disable}
+	      	/>
+	      	{ browser === 0
+    		?<Form
+		    onButtonSubmit = {this.onButtonSubmit}
+		    onInputchange = {this.onInputchange}
+		    />
+    		: ( browser === 1 
+    		? <Image photo = {image} />
+    		: <Results values = {values} />
+    		)
+    		}    		
+       	</div>
+    )
   }
 }
 
