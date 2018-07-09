@@ -11,7 +11,7 @@ const styles = {
 		width: '30%',
 		height: '500px',
 		overflowY: 'scroll',
-		minWidth: '450px',	
+		minWidth: '300px',	
 	}
 }
 
