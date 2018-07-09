@@ -8,10 +8,11 @@ const styles = {
 		padding: '20px',
 	},
 	table: {
-		width: '30%',
+		maxWidth: '500px',
+		width: '100%',
 		height: '500px',
 		overflowY: 'scroll',
-		minWidth: '300px',	
+		minWidth: '100px',	
 	}
 }
 
