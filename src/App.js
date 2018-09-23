@@ -50,17 +50,13 @@ class App extends Component {
 			canvas.width = img.width;
 			canvas.height = img.height;
 			ctx.drawImage(img, 0, 0);
-			// If the image is not png, the format
-			// must be specified here
 			const dataURI = canvas.toDataURL("image/jpeg", 0.1);
 			const base64img = dataURI.split("data:image/jpeg;base64,");
-			console.log(base64img);
 			app.models
 				.predict("bd367be194cf45149e75f01d59f77ba7", {
 					base64: base64img[1]
 				})
 				.then(response => {
-					console.log(response);
 					if (response) {
 						this.setState({ browser: 2, disable: false });
 						this.setState({ image: dataURI });
