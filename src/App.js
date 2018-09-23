@@ -1,84 +1,114 @@
-import React, { Component } from 'react';
-import Form from './components/Form/Form';
-import Image from './components/Image/Image';
-import Results from './components/Results/Results'
-import Browser from './components/Browser/Browser'
-import Clarifai from 'clarifai';
+import React, { Component } from "react";
+import Form from "./components/Form/Form";
+import Images from "./components/Image/Image";
+import Results from "./components/Results/Results";
+import Browser from "./components/Browser/Browser";
+import Clarifai from "clarifai";
+import "./App.css";
 
 const app = new Clarifai.App({
- apiKey: 'bfded7855d294034af402fc43b764606'
+	apiKey: "bfded7855d294034af402fc43b764606"
 });
-
 
 class App extends Component {
 	constructor() {
-		super()
+		super();
 		this.state = {
-			input: '',
-			image: '',
+			input: "",
+			image: "",
 			disable: true,
-			values: [],		
-			browser: 0,	
-		}
+			values: [],
+			browser: 0
+		};
 	}
 
-onBrowserClick = (number) => {
-	this.setState({ browser: number })
-}
+	onBrowserClick = number => {
+		this.setState({ browser: number });
+	};
 
-onInputchange = (event) => {
-	this.setState({input: event.target.value})
-}
+	onInputchange = event => {
+		this.setState({ input: event.target.value });
+	};
 
-onButtonSubmit = () => {	
-	this.setState({ image: this.state.input })
-	app.models
-		.predict(
-		"bd367be194cf45149e75f01d59f77ba7", 
-		this.state.input)
-		.then(response => {
-			if (response) {
-	  		this.setState({ browser: 2, disable: false })
-	  	}
-	  	this.array(this.results(response))
-	  });
-}
+	onButtonSubmit = () => {
+		this.setState({ image: this.state.input });
+		app.models
+			.predict("bd367be194cf45149e75f01d59f77ba7", this.state.input)
+			.then(response => {
+				if (response) {
+					this.setState({ browser: 2, disable: false });
+				}
+				this.array(this.results(response));
+			});
+	};
 
-results = (data) => {		
-	return data.outputs["0"].data.concepts.map(values => {				
-		return {
-			ingredient: values.name,
-			probability: values.value 
-		}	
-	})		
-}
+	onUploadImage = event => {
+		const canvas = document.createElement("canvas");
+		const ctx = canvas.getContext("2d");
+		const img = new Image();
+		img.onload = () => {
+			canvas.width = img.width;
+			canvas.height = img.height;
+			ctx.drawImage(img, 0, 0);
+			// If the image is not png, the format
+			// must be specified here
+			const dataURI = canvas.toDataURL("image/jpeg");
+			const base64img = dataURI.split("data:image/jpeg;base64,");
+			console.log(base64img);
+			app.models
+				.predict("bd367be194cf45149e75f01d59f77ba7", {
+					base64: base64img[1]
+				})
+				.then(response => {
+					console.log(response);
+					if (response) {
+						this.setState({ browser: 2, disable: false });
+						this.setState({ image: dataURI });
+					}
+					this.array(this.results(response));
+				});
+		};
+		img.src = URL.createObjectURL(event.target.files[0]);
+	};
 
-array = (values) => {
-	this.setState({ values: values })	
-}
+	results = data => {
+		return data.outputs["0"].data.concepts.map(values => {
+			return {
+				ingredient: values.name,
+				probability: values.value
+			};
+		});
+	};
 
-  render() {
-  	const { disable, values, browser, image } = this.state  	
-    return (
-    	<div>
-    		<Browser 
-	      	onBrowserClick = {this.onBrowserClick}
-	      	changePage = {browser}
-	      	disable = {disable}
-	      	/>
-	      	{ browser === 0
-    		?<Form
-		    onButtonSubmit = {this.onButtonSubmit}
-		    onInputchange = {this.onInputchange}
-		    />
-    		: ( browser === 1 
-    		? <Image photo = {image} />
-    		: <Results values = {values} />
-    		)
-    		}    		
-       	</div>
-    )
-  }
+	array = values => {
+		this.setState({ values: values });
+	};
+
+	render() {
+		const { disable, values, browser, image } = this.state;
+		return (
+			<div className="app">
+				<Browser
+					onBrowserClick={this.onBrowserClick}
+					changePage={browser}
+					disable={disable}
+				/>
+				{browser === 0 ? (
+					<div>
+						<Form
+							onButtonSubmit={this.onButtonSubmit}
+							onInputchange={this.onInputchange}
+							onUploadImage={this.onUploadImage}
+						/>
+					</div>
+				) : browser === 1 ? (
+					<Images photo={image} />
+				) : (
+					<Results values={values} />
+				)}
+			</div>
+		);
+	}
 }
 
 export default App;
