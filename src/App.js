@@ -52,7 +52,7 @@ class App extends Component {
 			ctx.drawImage(img, 0, 0);
 			// If the image is not png, the format
 			// must be specified here
-			const dataURI = canvas.toDataURL("image/jpeg");
+			const dataURI = canvas.toDataURL("image/jpeg", 0.1);
 			const base64img = dataURI.split("data:image/jpeg;base64,");
 			console.log(base64img);
 			app.models
