@@ -66,7 +66,7 @@ class App extends Component {
 		};
 		img.src = URL.createObjectURL(event.target.files[0]);
 	};
-
+	//test
 	results = data => {
 		return data.outputs["0"].data.concepts.map(values => {
 			return {
