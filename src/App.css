@@ -1,3 +1,6 @@
-.app {
-	position: relative;
+.results {
+	margin: 30px auto;
+	width: 80%;
+	height: 600px;
+	display: flex;
 }

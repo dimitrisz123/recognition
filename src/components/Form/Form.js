@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 
 const style = {
 	container: {
-		paddingTop: "48px",
 		height: "100vh"
 	},
 	wrap: {
@@ -45,19 +44,19 @@ const style = {
 	}
 };
 
-const Form = ({ onButtonSubmit, onInputchange, onUploadImage }) => {
+const Form = ({ onButtonSubmit, onInputchange, onUploadImage, value }) => {
 	return (
 		<div style={style.container}>
 			<div style={style.wrap}>
 				<Typography variant="display1" align="center">
-					Recognize food items and dishes, down to the ingredient
-					level
+					Recognize over 11,000 different concepts including objects,
+					themes, moods, and more.
 				</Typography>
 
 				<div style={style.http}>
 					<TextField
 						style={style.input}
-						placeholder="Enter an image URL"
+						value={value}
 						InputProps={{
 							disableUnderline: true
 						}}
@@ -73,7 +72,7 @@ const Form = ({ onButtonSubmit, onInputchange, onUploadImage }) => {
 				</div>
 				<div style={style.local}>
 					<Typography variant="title" align="left">
-						Or by uploading your own picture:
+						TRY YOUR OWN PICTURE:
 					</Typography>
 					<input
 						style={{ display: "none" }}
