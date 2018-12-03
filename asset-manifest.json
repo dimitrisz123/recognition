@@ -1,6 +1,13 @@
 {
-  "main.css": "static/css/main.656f4e41.css",
-  "main.css.map": "static/css/main.656f4e41.css.map",
-  "main.js": "static/js/main.6415d9f1.js",
-  "main.js.map": "static/js/main.6415d9f1.js.map"
+  "main.css": "/foodrecognition/static/css/main.69442126.chunk.css",
+  "main.js": "/foodrecognition/static/js/main.b9bd3662.chunk.js",
+  "main.js.map": "/foodrecognition/static/js/main.b9bd3662.chunk.js.map",
+  "static/js/1.088dbf78.chunk.js": "/foodrecognition/static/js/1.088dbf78.chunk.js",
+  "static/js/1.088dbf78.chunk.js.map": "/foodrecognition/static/js/1.088dbf78.chunk.js.map",
+  "runtime~main.js": "/foodrecognition/static/js/runtime~main.35b19bd5.js",
+  "runtime~main.js.map": "/foodrecognition/static/js/runtime~main.35b19bd5.js.map",
+  "static/css/main.69442126.chunk.css.map": "/foodrecognition/static/css/main.69442126.chunk.css.map",
+  "index.html": "/foodrecognition/index.html",
+  "precache-manifest.3620957ee2a4082574afad5309161211.js": "/foodrecognition/precache-manifest.3620957ee2a4082574afad5309161211.js",
+  "service-worker.js": "/foodrecognition/service-worker.js"
 }
