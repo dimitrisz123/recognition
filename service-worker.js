@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/foodrecognition/precache-manifest.3620957ee2a4082574afad5309161211.js"
+  "/foodrecognition/precache-manifest.5169211259e14f43e8bc3863c9671415.js"
 );
 
 workbox.clientsClaim();
